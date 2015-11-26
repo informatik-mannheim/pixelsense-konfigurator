@@ -66,6 +66,7 @@ namespace GrabTheScreen
             RemoveWindowAvailabilityHandlers();
         }
 
+
         /// <summary>
         /// Adds handlers for window availability events.
         /// </summary>
@@ -177,8 +178,6 @@ namespace GrabTheScreen
             tagDefinition.TagRemovedBehavior = TagRemovedBehavior.Disappear;
             tagDefinition.UsesTagOrientation = true;
             
-            
-           
             // Definitionen dem Visualizer hinzufügen
             visualizer.Definitions.Add(tagDefinition);
             visualizer.VisualizationAdded += OnVisualizationAdded;
@@ -275,6 +274,11 @@ namespace GrabTheScreen
 
         private void btn_color_white_Click(object sender, TouchEventArgs e)
         {
+            SetToWhite();
+        }
+
+        private void SetToWhite()
+        {
             Random random = new Random();
             int hash = random.Next(10000, 999999999);
             this.auto.setId(hash.ToString());
@@ -323,6 +327,11 @@ namespace GrabTheScreen
 
         private void btn_color_red_Click(object sender, TouchEventArgs e)
         {
+            SetToRed();
+        }
+
+        private void SetToRed()
+        {
             Random random = new Random();
             int hash = random.Next(10000, 999999999);
             this.auto.setId(hash.ToString());
@@ -355,6 +364,18 @@ namespace GrabTheScreen
 
             btn_grabIt.IsEnabled = true;
 
+        }
+
+        private void SurfaceWindow_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (e.TouchDevice.GetIsTagRecognized())
+            {
+                TagData tagData = e.TouchDevice.GetTagData();
+                if (tagData.Value == 0x1)
+                {
+                    SetToWhite();
+                }
+            }
         }
     }
 }
