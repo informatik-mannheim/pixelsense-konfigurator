@@ -122,6 +122,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\blop.wav" />
     <Resource Include="Resources\btn_rad1.jpg" />
     <Resource Include="Resources\btn_rad2.jpg" />
     <Resource Include="Resources\btn_rad3.jpg" />

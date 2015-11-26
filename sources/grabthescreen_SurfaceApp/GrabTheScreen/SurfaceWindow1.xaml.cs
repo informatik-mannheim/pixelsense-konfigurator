@@ -141,11 +141,7 @@ namespace GrabTheScreen
             BitmapImage imageBitmap = new BitmapImage(uri);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = imageBitmap;
-            thumbnail_car.Children.Add(thumbnail);
-            
-            Storage storage = new Storage();
-            storage.Save("test", "was geht ab");
-            Console.WriteLine(storage.Get("test"));
+            thumbnail_car.Children.Add(thumbnail);          
         }
 
         // Ausgabe der Auto-Informationen im Rechten Block 
@@ -202,7 +198,6 @@ namespace GrabTheScreen
             // setzt status des Datensatzes in DB auf false zunächst
             btn_grabIt.IsEnabled = false;
             MongoDB.save(this.auto);
-            
         }
 
         // erzeugt Tag-Bereich
@@ -374,6 +369,7 @@ namespace GrabTheScreen
                 if (tagData.Value == 0x1)
                 {
                     SetToWhite();
+                    System.Media.SystemSounds.Asterisk.Play();         
                 }
             }
         }
