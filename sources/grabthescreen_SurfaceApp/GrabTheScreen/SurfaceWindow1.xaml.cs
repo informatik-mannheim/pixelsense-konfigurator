@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
@@ -140,6 +141,10 @@ namespace GrabTheScreen
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = imageBitmap;
             thumbnail_car.Children.Add(thumbnail);
+            
+            Storage storage = new Storage();
+            storage.Save("test", "was geht ab");
+            Console.WriteLine(storage.Get("test"));
         }
 
         // Ausgabe der Auto-Informationen im Rechten Block 
@@ -197,7 +202,7 @@ namespace GrabTheScreen
 
             // setzt status des Datensatzes in DB auf false zunächst
             btn_grabIt.IsEnabled = false;
-            MongoDB.mongoDBconnection(this.auto);
+            MongoDB.save(this.auto);
             
         }
 
@@ -211,7 +216,7 @@ namespace GrabTheScreen
             camera.myRectangle.Fill = SurfaceColors.Accent1Brush;
             camera.setAuto(this.getAuto());
 
-            MongoDB.mongoDBconnection(this.auto);
+            MongoDB.save(this.auto);
         }
 
 

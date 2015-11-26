@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Foreground="white" Grid.Column="0" FontSize="50" Margin="40,0,0,0" VerticalAlignment="Center" HorizontalAlignment="left">Autokonfigurator</Label>
+            <Label Foreground="white" Grid.Column="0" FontSize="50" Margin="40,0,0,0" VerticalAlignment="Center" HorizontalAlignment="left">SysPlace Autokonfigurator</Label>
         </Grid>
         <Grid Grid.Row="1" Background="#393B3D">
             <Grid.ColumnDefinitions>
