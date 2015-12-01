@@ -23,6 +23,9 @@ using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 using System.Security.Cryptography;
+using System.Windows.Media.Media3D;
+
+using HelixToolkit.Wpf;
 
 namespace GrabTheScreen
 {
@@ -49,6 +52,10 @@ namespace GrabTheScreen
         public SurfaceWindow1()
         {
             InitializeComponent();
+
+            ModelVisual3D device3D = new ModelVisual3D();
+            device3D.Content = Display3d(MODEL_PATH);
+            konfig_auto.Children.Add(device3D);
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
@@ -180,7 +187,7 @@ namespace GrabTheScreen
 
             // Miniaturbild auf gts-Fl‰che
             System.Windows.Controls.Image newImage = new System.Windows.Controls.Image();
-            newImage.Source = konfig_auto.Source;
+           // newImage.Source = konfig_auto.Source;
             Thickness margin = newImage.Margin;
             margin.Left = 20;
             margin.Right = 20;
@@ -262,7 +269,7 @@ namespace GrabTheScreen
 
             Uri uri = new Uri(@"Resources\bmw_schwarz.jpg", UriKind.Relative);
             BitmapImage imageBitmap = new BitmapImage(uri);
-            konfig_auto.Source = imageBitmap;
+          //  konfig_auto.Source = imageBitmap;
 
             setConfLabels();
         }
@@ -291,7 +298,7 @@ namespace GrabTheScreen
 
             Uri uri = new Uri(@"Resources\bmw_weiﬂ.jpg", UriKind.Relative);
             BitmapImage imageBitmap = new BitmapImage(uri);
-            konfig_auto.Source = imageBitmap;
+            //konfig_auto.Source = imageBitmap;
 
             setConfLabels();
         }
@@ -315,7 +322,7 @@ namespace GrabTheScreen
 
             Uri uri = new Uri(@"Resources\bmw_blau.jpg", UriKind.Relative);
             BitmapImage imageBitmap = new BitmapImage(uri);
-            konfig_auto.Source = imageBitmap;
+           // konfig_auto.Source = imageBitmap;
 
             setConfLabels();
         }
@@ -344,7 +351,7 @@ namespace GrabTheScreen
 
             Uri uri = new Uri(@"Resources\bmw_rot.jpg", UriKind.Relative);
             BitmapImage imageBitmap = new BitmapImage(uri);
-            konfig_auto.Source = imageBitmap;
+          //  konfig_auto.Source = imageBitmap;
 
             setConfLabels();
         }
@@ -369,9 +376,31 @@ namespace GrabTheScreen
                 if (tagData.Value == 0x1)
                 {
                     SetToWhite();
+                    
                     System.Media.SystemSounds.Asterisk.Play();         
                 }
             }
+        }
+
+
+        private const string MODEL_PATH = @"Resources\patrick.obj";
+        private Model3D Display3d(string model)
+        {
+            Model3D device = null;
+            try
+            {
+                konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
+
+                ModelImporter import = new ModelImporter();
+
+                device = import.Load(model);
+            }
+            catch (Exception ex)
+            {
+                // ignore lol
+            }
+
+            return device;
         }
     }
 }
