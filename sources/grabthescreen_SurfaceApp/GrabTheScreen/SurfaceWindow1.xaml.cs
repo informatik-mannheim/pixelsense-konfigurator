@@ -55,10 +55,32 @@ namespace GrabTheScreen
 
             ModelVisual3D device3D = new ModelVisual3D();
             device3D.Content = Display3d(MODEL_PATH);
+            
             konfig_auto.Children.Add(device3D);
-
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
+        }
+
+        private const string MODEL_PATH = @"Resources\auto_gruen.obj";
+        private Model3D Display3d(string model)
+        {
+            Model3D device = null;
+            try
+            {
+                konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
+                konfig_auto.IsHeadLightEnabled = true;
+                
+                ModelImporter import = new ModelImporter();
+
+                device = import.Load(model);
+                
+            }
+            catch (Exception ex)
+            {
+                // ignore lol
+            }
+
+            return device;
         }
 
         /// <summary>
@@ -382,25 +404,5 @@ namespace GrabTheScreen
             }
         }
 
-
-        private const string MODEL_PATH = @"Resources\patrick.obj";
-        private Model3D Display3d(string model)
-        {
-            Model3D device = null;
-            try
-            {
-                konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
-
-                ModelImporter import = new ModelImporter();
-
-                device = import.Load(model);
-            }
-            catch (Exception ex)
-            {
-                // ignore lol
-            }
-
-            return device;
-        }
     }
 }
