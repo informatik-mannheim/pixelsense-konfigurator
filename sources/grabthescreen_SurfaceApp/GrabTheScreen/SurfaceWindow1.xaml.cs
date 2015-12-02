@@ -196,7 +196,7 @@ namespace GrabTheScreen
             this.auto.setStatus(false);
 
             // Miniaturbild (thumbnail) erzeugen
-            Uri uri = new Uri(auto.getSource(), UriKind.Absolute);
+            Uri uri = new Uri(auto.getSource(), UriKind.Relative);
             BitmapImage imageBitmap = new BitmapImage(uri);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = imageBitmap;
@@ -348,7 +348,7 @@ namespace GrabTheScreen
 
             // Miniaturbild (thumbnail) erzeugen
           //  Uri miniatur = new Uri(@"Resources\small_bmw_weiﬂ.jpg", UriKind.Relative);
-            Uri miniatur = new Uri(@"Resources\green.PNG", UriKind.Absolute);
+            Uri miniatur = new Uri(@"Resources\green.PNG", UriKind.Relative);
             BitmapImage ib = new BitmapImage(miniatur);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = ib;
