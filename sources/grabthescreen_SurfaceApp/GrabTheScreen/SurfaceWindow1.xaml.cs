@@ -37,6 +37,7 @@ namespace GrabTheScreen
 
         public Auto auto;
         public String baseString;
+        private ModelVisual3D _3dModel;
 
         public Auto getAuto() {
             return this.auto;
@@ -53,15 +54,17 @@ namespace GrabTheScreen
         {
             InitializeComponent();
 
-            ModelVisual3D device3D = new ModelVisual3D();
-            device3D.Content = Display3d(MODEL_PATH);
-            
-            konfig_auto.Children.Add(device3D);
+            _3dModel = new ModelVisual3D();
+            _3dModel.Content = Display3d(MODEL_BLUE);
+
+            konfig_auto.Children.Add(_3dModel);
+
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
         }
 
-        private const string MODEL_PATH = @"Resources\auto_gruen.obj";
+        private const string MODEL_BLUE = @"Resources\auto_blau.obj";
+        private const string MODEL_GREEN = @"Resources\auto_gruen.obj";
         private Model3D Display3d(string model)
         {
             Model3D device = null;
@@ -69,7 +72,8 @@ namespace GrabTheScreen
             {
                 konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
                 konfig_auto.IsHeadLightEnabled = true;
-                
+                konfig_auto.CameraRotationMode = CameraRotationMode.Turntable;
+          
                 ModelImporter import = new ModelImporter();
 
                 device = import.Load(model);
@@ -294,11 +298,13 @@ namespace GrabTheScreen
           //  konfig_auto.Source = imageBitmap;
 
             setConfLabels();
+            _3dModel.Content = Display3d(MODEL_BLUE);
         }
 
         private void btn_color_white_Click(object sender, TouchEventArgs e)
         {
             SetToWhite();
+            _3dModel.Content = Display3d(MODEL_GREEN);
         }
 
         private void SetToWhite()
