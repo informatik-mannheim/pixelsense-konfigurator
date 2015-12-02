@@ -39,6 +39,9 @@ namespace GrabTheScreen
         public String baseString;
         private ModelVisual3D _3dModel;
 
+        private Model3D _blueCar;
+        private Model3D _greenCar;
+
         public Auto getAuto() {
             return this.auto;
         }
@@ -53,10 +56,14 @@ namespace GrabTheScreen
         public SurfaceWindow1()
         {
             InitializeComponent();
-            
+
             _3dModel = new ModelVisual3D();
-            _3dModel.Content = Display3d(MODEL_GREEN);
+
+            _blueCar = Display3d(MODEL_BLUE);
+            _greenCar = Display3d(MODEL_GREEN);
             
+            _3dModel.Content = _blueCar;
+
             konfig_auto.Children.Add(_3dModel);
             konfig_auto.Camera.LookDirection = new Vector3D(12.5551, -15.71341, -7.90444);
             konfig_auto.Camera.Position = new Point3D(-12.0937, 15.64731, 8.64752);
@@ -88,7 +95,6 @@ namespace GrabTheScreen
                 
                 ModelImporter import = new ModelImporter();
                 
-                                
                 device = import.Load(model, null, false); 
             }
             catch (Exception ex)
@@ -310,13 +316,13 @@ namespace GrabTheScreen
           //  konfig_auto.Source = imageBitmap;
 
             setConfLabels();
-            _3dModel.Content = Display3d(MODEL_BLUE);
+            _3dModel.Content =_blueCar;
         }
 
         private void btn_color_white_Click(object sender, TouchEventArgs e)
         {
             SetToWhite();
-            _3dModel.Content = Display3d(MODEL_GREEN);
+            _3dModel.Content = _greenCar;
         }
 
         private void SetToWhite()
