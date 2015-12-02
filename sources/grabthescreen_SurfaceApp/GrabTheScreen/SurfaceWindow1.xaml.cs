@@ -191,7 +191,7 @@ namespace GrabTheScreen
             this.auto.setModelDescription("Modell Advantage");
             this.auto.setPrice("22.650 EUR");
             //this.auto.setSource("Resources/small_bmw_rot.jpg");
-            this.auto.setSource(@"E:\blue.PNG");
+            this.auto.setSource(@"Resources\blue.PNG");
             this.auto.setColor("Rot");
             this.auto.setStatus(false);
 
@@ -348,7 +348,7 @@ namespace GrabTheScreen
 
             // Miniaturbild (thumbnail) erzeugen
           //  Uri miniatur = new Uri(@"Resources\small_bmw_weiﬂ.jpg", UriKind.Relative);
-            Uri miniatur = new Uri(@"E:\green.PNG", UriKind.Absolute);
+            Uri miniatur = new Uri(@"Resources\green.PNG", UriKind.Absolute);
             BitmapImage ib = new BitmapImage(miniatur);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = ib;
