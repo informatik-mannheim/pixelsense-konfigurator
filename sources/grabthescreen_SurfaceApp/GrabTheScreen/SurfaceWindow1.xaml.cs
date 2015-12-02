@@ -58,8 +58,8 @@ namespace GrabTheScreen
             _3dModel.Content = Display3d(MODEL_GREEN);
             
             konfig_auto.Children.Add(_3dModel);
-            konfig_auto.Camera.LookDirection = new Vector3D(10.0773217009279, 14.0628776716575, -5.6526261953292);
-            konfig_auto.Camera.Position = new Point3D(-10.0020767009279, -13.9087681716575, 6.31216361953292);
+            konfig_auto.Camera.LookDirection = new Vector3D(12.5551, -15.71341, -7.90444);
+            konfig_auto.Camera.Position = new Point3D(-12.0937, 15.64731, 8.64752);
             konfig_auto.CameraChanged += new RoutedEventHandler(konfig_auto_CameraChanged); // Debug
 
             // Add handlers for window availability events
