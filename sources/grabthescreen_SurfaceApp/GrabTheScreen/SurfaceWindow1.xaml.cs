@@ -68,7 +68,7 @@ namespace GrabTheScreen
             konfig_auto.Camera.LookDirection = new Vector3D(12.5551, -15.71341, -7.90444);
             konfig_auto.Camera.Position = new Point3D(-12.0937, 15.64731, 8.64752);
             konfig_auto.CameraChanged += new RoutedEventHandler(konfig_auto_CameraChanged); // Debug
-
+            
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
         }
@@ -76,11 +76,11 @@ namespace GrabTheScreen
         void konfig_auto_CameraChanged(object sender, RoutedEventArgs e)
         {
             if (!SHOW_POSITION) return;
+      
             var x = konfig_auto.Camera.Position;
             var y = konfig_auto.Camera.LookDirection;
             Console.WriteLine("Position: " + x.ToString() + ", LookDirection: " + y.ToString());
         }
-
 
         private const string MODEL_BLUE = @"Resources\auto_blau.obj";
         private const string MODEL_GREEN = @"Resources\auto_gruen.obj";

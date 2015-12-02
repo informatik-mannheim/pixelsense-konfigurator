@@ -62,8 +62,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <helix:HelixViewport3D x:Name="konfig_auto" ZoomExtentsWhenLoaded="False" Height="Auto" Width="Auto" CameraRotationMode="Turntable"  >
-                    <!--<helix:DefaultLights></helix:DefaultLights>-->
-                   <!-- <helix:SunLight></helix:SunLight>-->
+                    <helix:SunLight></helix:SunLight>
                     <helix:ThreePointLights></helix:ThreePointLights>
                     <ModelVisual3D x:Name="myModel" />
                 </helix:HelixViewport3D>
