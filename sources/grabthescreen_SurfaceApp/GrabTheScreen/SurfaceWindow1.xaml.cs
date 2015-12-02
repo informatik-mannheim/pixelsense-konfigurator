@@ -74,8 +74,7 @@ namespace GrabTheScreen
         }
 
         void konfig_auto_CameraChanged(object sender, RoutedEventArgs e)
-        {
-            
+        {   
             var x = konfig_auto.Camera.Position;
             var y = konfig_auto.Camera.LookDirection;
             Console.WriteLine("Position: " + x.ToString() + ", LookDirection: " + y.ToString());
@@ -95,7 +94,15 @@ namespace GrabTheScreen
                 
                 ModelImporter import = new ModelImporter();
                 
-                device = import.Load(model, null, false); 
+                device = import.Load(model, null, false);
+
+                var x = ((Model3DGroup)device);
+                
+                var child1 = (GeometryModel3D)x.Children[30];
+                var material = (MaterialGroup) child1.BackMaterial;
+                var materials = material.Children;
+                var mat_1_1 = materials[1];
+       
             }
             catch (Exception ex)
             {
@@ -183,16 +190,17 @@ namespace GrabTheScreen
             this.auto.setModel("BMW 116i 3-T¸rer");
             this.auto.setModelDescription("Modell Advantage");
             this.auto.setPrice("22.650 EUR");
-            this.auto.setSource("Resources/small_bmw_rot.jpg");
+            //this.auto.setSource("Resources/small_bmw_rot.jpg");
+            this.auto.setSource(@"E:\blue.PNG");
             this.auto.setColor("Rot");
             this.auto.setStatus(false);
 
             // Miniaturbild (thumbnail) erzeugen
-            Uri uri = new Uri(auto.getSource(), UriKind.Relative);
+            Uri uri = new Uri(auto.getSource(), UriKind.Absolute);
             BitmapImage imageBitmap = new BitmapImage(uri);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = imageBitmap;
-            thumbnail_car.Children.Add(thumbnail);          
+            thumbnail_car.Children.Add(thumbnail);
         }
 
         // Ausgabe der Auto-Informationen im Rechten Block 
@@ -294,6 +302,7 @@ namespace GrabTheScreen
             return img;
         }
 
+        // this is blue
         private void btn_color_black_Click(object sender, TouchEventArgs e)
         {
             Random random = new Random();
@@ -306,6 +315,7 @@ namespace GrabTheScreen
 
             // Miniaturbild (thumbnail) erzeugen
             Uri miniatur = new Uri(@"Resources\small_bmw_schwarz.jpg", UriKind.Relative);
+            
             BitmapImage ib = new BitmapImage(miniatur);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = ib;
@@ -319,6 +329,7 @@ namespace GrabTheScreen
             _3dModel.Content =_blueCar;
         }
 
+        // this is green
         private void btn_color_white_Click(object sender, TouchEventArgs e)
         {
             SetToWhite();
@@ -336,7 +347,8 @@ namespace GrabTheScreen
             auto.setSource("Resources/small_bmw_weiﬂ.jpg");
 
             // Miniaturbild (thumbnail) erzeugen
-            Uri miniatur = new Uri(@"Resources\small_bmw_weiﬂ.jpg", UriKind.Relative);
+          //  Uri miniatur = new Uri(@"Resources\small_bmw_weiﬂ.jpg", UriKind.Relative);
+            Uri miniatur = new Uri(@"E:\green.PNG", UriKind.Absolute);
             BitmapImage ib = new BitmapImage(miniatur);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = ib;
