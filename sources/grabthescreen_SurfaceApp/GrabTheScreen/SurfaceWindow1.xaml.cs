@@ -53,15 +53,27 @@ namespace GrabTheScreen
         public SurfaceWindow1()
         {
             InitializeComponent();
-
+            
             _3dModel = new ModelVisual3D();
-            _3dModel.Content = Display3d(MODEL_BLUE);
-
+            _3dModel.Content = Display3d(MODEL_GREEN);
+            
             konfig_auto.Children.Add(_3dModel);
+            konfig_auto.Camera.LookDirection = new Vector3D(10.0773217009279, 14.0628776716575, -5.6526261953292);
+            konfig_auto.Camera.Position = new Point3D(-10.0020767009279, -13.9087681716575, 6.31216361953292);
+            konfig_auto.CameraChanged += new RoutedEventHandler(konfig_auto_CameraChanged); // Debug
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
         }
+
+        void konfig_auto_CameraChanged(object sender, RoutedEventArgs e)
+        {
+            
+            var x = konfig_auto.Camera.Position;
+            var y = konfig_auto.Camera.LookDirection;
+            Console.WriteLine("Position: " + x.ToString() + ", LookDirection: " + y.ToString());
+        }
+
 
         private const string MODEL_BLUE = @"Resources\auto_blau.obj";
         private const string MODEL_GREEN = @"Resources\auto_gruen.obj";
@@ -71,13 +83,13 @@ namespace GrabTheScreen
             try
             {
                 konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
+                konfig_auto.IsRotationEnabled = true;
                 konfig_auto.IsHeadLightEnabled = true;
-                konfig_auto.CameraRotationMode = CameraRotationMode.Turntable;
-          
-                ModelImporter import = new ModelImporter();
-
-                device = import.Load(model);
                 
+                ModelImporter import = new ModelImporter();
+                
+                                
+                device = import.Load(model, null, false); 
             }
             catch (Exception ex)
             {
@@ -404,8 +416,8 @@ namespace GrabTheScreen
                 if (tagData.Value == 0x1)
                 {
                     SetToWhite();
-                    
-                    System.Media.SystemSounds.Asterisk.Play();         
+
+                    System.Media.SystemSounds.Asterisk.Play();
                 }
             }
         }
