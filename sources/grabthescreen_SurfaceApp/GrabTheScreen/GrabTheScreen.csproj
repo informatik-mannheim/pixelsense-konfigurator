@@ -142,6 +142,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\blue.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\green.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\btn_rad1.jpg" />
     <Resource Include="Resources\btn_rad2.jpg" />
     <Resource Include="Resources\btn_rad3.jpg" />
