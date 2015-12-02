@@ -61,8 +61,11 @@
                     <RowDefinition Height="500"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <helix:HelixViewport3D x:Name="konfig_auto" ZoomExtentsWhenLoaded="False" Height="Auto" Width="Auto">
-                    <helix:SunLight  />
+                <helix:HelixViewport3D x:Name="konfig_auto" ZoomExtentsWhenLoaded="False" Height="Auto" Width="Auto" CameraRotationMode="Turntable"  >
+                    <helix:DefaultLights></helix:DefaultLights>
+                    <helix:SunLight></helix:SunLight>
+                    <helix:ThreePointLights></helix:ThreePointLights>
+                    <ModelVisual3D x:Name="myModel" />
                 </helix:HelixViewport3D>
                     <!--                <Image Height="auto" Stretch="None" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" Source="Resources\bmw_rot.jpg" Name="konfig_auto" TouchDown="SurfaceWindow_TouchDown"/>-->
                 <Grid Grid.Row="1" Margin="0 50 0 0">

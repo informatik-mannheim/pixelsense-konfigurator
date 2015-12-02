@@ -34,6 +34,7 @@ namespace GrabTheScreen
     /// </summary>
     public partial class SurfaceWindow1 : SurfaceWindow
     {
+        private const bool SHOW_POSITION = false;
 
         public Auto auto;
         public String baseString;
@@ -57,14 +58,13 @@ namespace GrabTheScreen
         {
             InitializeComponent();
 
-            _3dModel = new ModelVisual3D();
+            _3dModel = (ModelVisual3D)FindName("myModel");
 
             _blueCar = Display3d(MODEL_BLUE);
             _greenCar = Display3d(MODEL_GREEN);
             
             _3dModel.Content = _blueCar;
-
-            konfig_auto.Children.Add(_3dModel);
+            
             konfig_auto.Camera.LookDirection = new Vector3D(12.5551, -15.71341, -7.90444);
             konfig_auto.Camera.Position = new Point3D(-12.0937, 15.64731, 8.64752);
             konfig_auto.CameraChanged += new RoutedEventHandler(konfig_auto_CameraChanged); // Debug
@@ -74,7 +74,8 @@ namespace GrabTheScreen
         }
 
         void konfig_auto_CameraChanged(object sender, RoutedEventArgs e)
-        {   
+        {
+            if (!SHOW_POSITION) return;
             var x = konfig_auto.Camera.Position;
             var y = konfig_auto.Camera.LookDirection;
             Console.WriteLine("Position: " + x.ToString() + ", LookDirection: " + y.ToString());
@@ -89,20 +90,9 @@ namespace GrabTheScreen
             try
             {
                 konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
-                konfig_auto.IsRotationEnabled = true;
-                konfig_auto.IsHeadLightEnabled = true;
+                konfig_auto.CameraRotationMode = CameraRotationMode.Turnball;
                 
-                ModelImporter import = new ModelImporter();
-                
-                device = import.Load(model, null, false);
-
-                var x = ((Model3DGroup)device);
-                
-                var child1 = (GeometryModel3D)x.Children[30];
-                var material = (MaterialGroup) child1.BackMaterial;
-                var materials = material.Children;
-                var mat_1_1 = materials[1];
-       
+                device = new ObjReader().Read(model);
             }
             catch (Exception ex)
             {
@@ -314,17 +304,13 @@ namespace GrabTheScreen
             auto.setSource("Resources/small_bmw_schwarz.jpg");
 
             // Miniaturbild (thumbnail) erzeugen
-            Uri miniatur = new Uri(@"Resources\small_bmw_schwarz.jpg", UriKind.Relative);
             
+            Uri miniatur = new Uri(@"Resources\blue.PNG", UriKind.Relative);
             BitmapImage ib = new BitmapImage(miniatur);
             System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
             thumbnail.Source = ib;
             thumbnail_car.Children.Add(thumbnail);
-
-            Uri uri = new Uri(@"Resources\bmw_schwarz.jpg", UriKind.Relative);
-            BitmapImage imageBitmap = new BitmapImage(uri);
-          //  konfig_auto.Source = imageBitmap;
-
+            
             setConfLabels();
             _3dModel.Content =_blueCar;
         }
