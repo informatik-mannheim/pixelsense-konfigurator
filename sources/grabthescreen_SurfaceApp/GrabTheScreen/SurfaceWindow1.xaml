@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
     xmlns:helix="http://helix-toolkit.org/wpf"
-    Title="GrabTheScreen" Height="auto" Width="auto" Loaded="SurfaceWindow_Loaded">
+    Title="GrabTheScreen" Height="auto" Width="auto" Loaded="SurfaceWindow_Loaded" TouchDown="SurfaceWindow_TouchDown">
 
     <Grid Background="#FFF"> 
         <Grid.RowDefinitions>
