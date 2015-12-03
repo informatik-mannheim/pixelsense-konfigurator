@@ -1,0 +1,46 @@
+{
+	"product": {
+		"attributeGroups": [
+			{
+				"name": "Exterior",
+				"attributes": [
+					{
+						"name": "Farbe",
+						"selectedValues": [
+							"Rot"
+						]
+					},
+					{
+						"name": "Scheibentönung",
+						"selectedValues": [
+							"Ja"
+						]
+					},
+					{
+						"name": "Felgen",
+						"selectedValues": [
+							"Felge B"
+						]
+					}
+				]
+			},
+			{
+				"name": "Interior",
+				"attributes": [
+					{
+						"name": "Polster",
+						"selectedValues": [
+							"Leder"
+						]
+					},
+					{
+						"name": "Navigation",
+						"selectedValues": [
+							"Ja"
+						]
+					}
+				]
+			}
+		]
+	}
+}
