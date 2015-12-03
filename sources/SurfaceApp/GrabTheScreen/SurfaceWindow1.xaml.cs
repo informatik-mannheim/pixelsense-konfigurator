@@ -5,6 +5,7 @@ using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 using System.Windows.Media.Media3D;
+using System.Collections.Generic;
 
 using HelixToolkit.Wpf;
 
@@ -18,28 +19,15 @@ namespace GrabTheScreen
     public partial class SurfaceWindow1 : SurfaceWindow
     {
         private const bool SHOW_POSITION = false;
-        private const string MODEL_BLUE = @"Resources\auto_blau.obj";
-        private const string MODEL_GREEN = @"Resources\auto_gruen.obj";
-
+        
         public event EventHandler<TouchEventArgs> TabletRecognized;
         public event EventHandler<TouchEventArgs> GlassesRecognized;
 
-        public Car _car;
-        public String baseString;
+        private Car _car;
         private ModelVisual3D _3dModel;
+        private Storage _storage = new Storage();
 
-        private Model3D _blueCar;
-        private Model3D _greenCar;
-
-        public Car getAuto()
-        {
-            return this._car;
-        }
-
-        public void setAuto(Car auto)
-        {
-            this._car = auto;
-        }
+        private CarRepository _carRepository;
 
         /// <summary>
         /// Default constructor.
@@ -51,11 +39,9 @@ namespace GrabTheScreen
             TabletRecognized += OnTabletRecognized;
             GlassesRecognized += OnGlassesRecognized;
 
+            _carRepository = new CarRepository();
             _3dModel = (ModelVisual3D)FindName("myModel");
 
-            _blueCar = ModelLoader.Load(MODEL_BLUE);
-            _greenCar = ModelLoader.Load(MODEL_GREEN);
-            
             konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
             konfig_auto.CameraRotationMode = CameraRotationMode.Turnball;
             konfig_auto.Camera.LookDirection = new Vector3D(12.5551, -15.71341, -7.90444);
@@ -72,7 +58,6 @@ namespace GrabTheScreen
             Console.WriteLine("Position: " + x.ToString() + ", LookDirection: " + y.ToString());
         }
 
-
         /// <summary>
         /// Invoked When The Window Is Being Loaded. Default Car is displayed.
         /// </summary>
@@ -80,17 +65,17 @@ namespace GrabTheScreen
         /// <param name="e"></param>
         private void SurfaceWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            ChangeCar(new BlueCar(), _blueCar);
+            ChangeCar(_carRepository.GetBlueCar());
         }
 
         private void btn_color_blue_Click(object sender, TouchEventArgs e)
         {
-            ChangeCar(new BlueCar(), _blueCar);
+            ChangeCar(_carRepository.GetBlueCar());
         }
 
         private void btn_color_green_Click(object sender, TouchEventArgs e)
         {
-            ChangeCar(new GreenCar(), _greenCar);
+            ChangeCar(_carRepository.GetGreenCar());
         }
 
         /// <summary>
@@ -98,26 +83,26 @@ namespace GrabTheScreen
         /// </summary>
         /// <param name="car">The car information.</param>
         /// <param name="model">The 3D model of the car.</param>
-        private void ChangeCar(Car car, Model3D model)
+        private void ChangeCar(Car car)
         {
             _car = car;
             thumbnail_car.Children.Add(_car.CreateThumbnail());
-            _3dModel.Content = model;
+            _3dModel.Content = _car.Model3D;
 
             setCarInformation();
         }
 
         public void setCarInformation()
         {
-            lblCarModel.Content = _car.getModel();
-            lblCarDescription.Content = _car.getModelDescription();
-            lblCarPrice.Content = _car.getPrice();
-            lblCarColor.Content = _car.getColor();
+            lblCarModel.Content = _car.Model;
+            lblCarDescription.Content = _car.ModelDescription;
+            lblCarPrice.Content = _car.Price;
+            lblCarColor.Content = _car.Color;
         }
 
         private void OnTabletRecognized(Object sender, TouchEventArgs e)
         {
-            ChangeCar(new GreenCar(), _greenCar);
+            ChangeCar(_carRepository.FetchRemote());
             System.Media.SystemSounds.Asterisk.Play();
         }
 

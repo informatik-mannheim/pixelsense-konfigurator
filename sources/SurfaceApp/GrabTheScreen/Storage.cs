@@ -18,7 +18,7 @@ namespace GrabTheScreen
             URL = String.Format("http://{0}:{1}/string-store", ip, port);
         }
 
-        public String Get(String key)
+        public String Load(String key)
         {
             var client = new RestClient(URL);
             var request = new RestRequest("get", Method.GET);
