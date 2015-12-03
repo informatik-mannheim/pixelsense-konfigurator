@@ -6,6 +6,7 @@ using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 using System.Windows.Media.Media3D;
 using System.Collections.Generic;
+using System.Configuration;
 
 using HelixToolkit.Wpf;
 
@@ -41,6 +42,8 @@ namespace GrabTheScreen
 
             _carRepository = new CarRepository();
             _3dModel = (ModelVisual3D)FindName("myModel");
+
+            _storage.Save(ConfigurationManager.AppSettings.Get("storage-key-cas"), new JsonSerializer<CarConfigJson>().Serialize(CarConfigJson.Default()));
 
             konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
             konfig_auto.CameraRotationMode = CameraRotationMode.Turnball;
@@ -108,7 +111,8 @@ namespace GrabTheScreen
 
         private void OnGlassesRecognized(Object sender, TouchEventArgs e)
         {
-            // Todo: Implement
+            _carRepository.StoreRemote(_car);
+            System.Media.SystemSounds.Asterisk.Play();
         }
 
         private void SurfaceWindow_TouchDown(object sender, TouchEventArgs e)
