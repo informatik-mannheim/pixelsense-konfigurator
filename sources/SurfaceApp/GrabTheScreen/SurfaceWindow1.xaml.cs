@@ -26,7 +26,6 @@ namespace GrabTheScreen
 
         private Car _car;
         private ModelVisual3D _3dModel;
-        private Storage _storage = new Storage();
 
         private CarRepository _carRepository;
 
@@ -42,8 +41,6 @@ namespace GrabTheScreen
 
             _carRepository = new CarRepository();
             _3dModel = (ModelVisual3D)FindName("myModel");
-
-            _storage.Save(ConfigurationManager.AppSettings.Get("storage-key-cas"), new JsonSerializer<CarConfigJson>().Serialize(CarConfigJson.Default()));
 
             konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
             konfig_auto.CameraRotationMode = CameraRotationMode.Turnball;
@@ -81,6 +78,18 @@ namespace GrabTheScreen
             ChangeCar(_carRepository.GetGreenCar());
         }
 
+        private void OnTabletRecognized(Object sender, TouchEventArgs e)
+        {
+            ChangeCar(_carRepository.FetchRemote());
+            System.Media.SystemSounds.Asterisk.Play();
+        }
+
+        private void OnGlassesRecognized(Object sender, TouchEventArgs e)
+        {
+            _carRepository.StoreRemote(_car);
+            System.Media.SystemSounds.Asterisk.Play();
+        }
+
         /// <summary>
         /// Set new car to be displayed.
         /// </summary>
@@ -103,29 +112,17 @@ namespace GrabTheScreen
             lblCarColor.Content = _car.Color;
         }
 
-        private void OnTabletRecognized(Object sender, TouchEventArgs e)
-        {
-            ChangeCar(_carRepository.FetchRemote());
-            System.Media.SystemSounds.Asterisk.Play();
-        }
-
-        private void OnGlassesRecognized(Object sender, TouchEventArgs e)
-        {
-            _carRepository.StoreRemote(_car);
-            System.Media.SystemSounds.Asterisk.Play();
-        }
-
         private void SurfaceWindow_TouchDown(object sender, TouchEventArgs e)
         {
             if (e.TouchDevice.GetIsTagRecognized())
             {
                 TagData tagData = e.TouchDevice.GetTagData();
 
-                if (tagData.Value == 0x1)
+                if (Tags.IsTablet(tagData.Value))
                 {
                     TabletRecognized(sender, e);
                 }
-                else if (tagData.Value == 0x2)
+                else if (Tags.IsGlasses(tagData.Value))
                 {
                     GlassesRecognized(sender, e);
                 }
