@@ -78,10 +78,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CameraVisualization.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SurfaceWindow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,11 +87,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Car.cs" />
-    <Compile Include="CameraVisualization.xaml.cs">
-      <DependentUpon>CameraVisualization.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AutoTO.cs" />
-    <Compile Include="ImageHelper.cs" />
     <Compile Include="ModelLoader.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="SurfaceWindow1.xaml.cs">

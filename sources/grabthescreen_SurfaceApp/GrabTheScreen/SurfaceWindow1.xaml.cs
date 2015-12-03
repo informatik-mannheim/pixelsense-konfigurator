@@ -21,6 +21,9 @@ namespace GrabTheScreen
         private const string MODEL_BLUE = @"Resources\auto_blau.obj";
         private const string MODEL_GREEN = @"Resources\auto_gruen.obj";
 
+        public event EventHandler<TouchEventArgs> TabletRecognized;
+        public event EventHandler<TouchEventArgs> GlassesRecognized;
+
         public Car _car;
         public String baseString;
         private ModelVisual3D _3dModel;
@@ -44,6 +47,9 @@ namespace GrabTheScreen
         public SurfaceWindow1()
         {
             InitializeComponent();
+
+            TabletRecognized += OnTabletRecognized;
+            GlassesRecognized += OnGlassesRecognized;
 
             _3dModel = (ModelVisual3D)FindName("myModel");
 
@@ -98,77 +104,26 @@ namespace GrabTheScreen
             thumbnail_car.Children.Add(_car.CreateThumbnail());
             _3dModel.Content = model;
 
-            setConfLabels();
+            setCarInformation();
         }
 
-        // Methode, die aufgerufen wird bei Klick auf "grab it" Button
-        private void btn_grabIt_Click(object sender, RoutedEventArgs e)
+        public void setCarInformation()
         {
-            // damit Miniatur-Bild erst zur Laufzeit angezeigt wird
-           // placeholder_smartphone.Children.Clear();
-
-            // Erstellen des Vizualizer's
-            TagVisualizer visualizer = new TagVisualizer();
-            visualizer.Name = "MyTagVisualizer";
-
-            // Visualization Definitionen
-            TagVisualizationDefinition tagDefinition = new TagVisualizationDefinition();
-
-            // Tag Value 0x18 - wichtig für Input Simulator
-            tagDefinition.Value = "0x18";
-            tagDefinition.Source = new Uri("CameraVisualization.xaml", UriKind.Relative);
-            tagDefinition.LostTagTimeout = 2000;
-            tagDefinition.MaxCount = 2;
-            tagDefinition.OrientationOffsetFromTag = 0;
-            tagDefinition.TagRemovedBehavior = TagRemovedBehavior.Disappear;
-            tagDefinition.UsesTagOrientation = true;
-            
-            // Definitionen dem Visualizer hinzufügen
-            visualizer.Definitions.Add(tagDefinition);
-            visualizer.VisualizationAdded += OnVisualizationAdded;
-
-            // Miniaturbild auf gts-Fläche
-            System.Windows.Controls.Image newImage = new System.Windows.Controls.Image();
-           // newImage.Source = konfig_auto.Source;
-            Thickness margin = newImage.Margin;
-            margin.Left = 20;
-            margin.Right = 20;
-            newImage.Margin = margin;
-
-            // zur Laufzeit Visualizer erzeugen
-            placeholder_smartphone.Children.Add(visualizer);
-
-            hierAuflegen.Visibility = System.Windows.Visibility.Visible;
-          
-            // WPF-Image zu Drawing-Image konvertieren
-            System.Drawing.Image drawingImage = ImageHelper.ConvertWpfImageToImage(newImage);
-            baseString = ImageHelper.ToBase64String(drawingImage);
-
-            // setzt status des Datensatzes in DB auf false zunächst
-            btn_grabIt.IsEnabled = false;
-          //  MongoDB.save(this.auto);
+            lblCarModel.Content = _car.getModel();
+            lblCarDescription.Content = _car.getModelDescription();
+            lblCarPrice.Content = _car.getPrice();
+            lblCarColor.Content = _car.getColor();
         }
 
-        // erzeugt Tag-Bereich
-        private void OnVisualizationAdded(object sender, TagVisualizerEventArgs e)
+        private void OnTabletRecognized(Object sender, TouchEventArgs e)
         {
-            _car.setStatus(true);
-            
-            CameraVisualization camera = (CameraVisualization)e.TagVisualization;
-            camera.GRABIT.Content = "Das Smartphone wurde erkannt";
-            camera.myRectangle.Fill = SurfaceColors.Accent1Brush;
-            camera.setAuto(getAuto());
+            ChangeCar(new GreenCar(), _greenCar);
+            System.Media.SystemSounds.Asterisk.Play();
         }
 
-        public void setConfLabels()
+        private void OnGlassesRecognized(Object sender, TouchEventArgs e)
         {
-            Label_carModel.Content = _car.getModel();
-            Label_carDescription.Content = _car.getModelDescription();
-            Label_carPrice.Content = _car.getPrice();
-            Label_carColor.Content = _car.getColor();
-            hierAuflegen.Visibility = System.Windows.Visibility.Hidden;
-
-            btn_grabIt.IsEnabled = true;
+            // Todo: Implement
         }
 
         private void SurfaceWindow_TouchDown(object sender, TouchEventArgs e)
@@ -176,11 +131,14 @@ namespace GrabTheScreen
             if (e.TouchDevice.GetIsTagRecognized())
             {
                 TagData tagData = e.TouchDevice.GetTagData();
+
                 if (tagData.Value == 0x1)
                 {
-                    ChangeCar(new GreenCar(), _greenCar);
-
-                    System.Media.SystemSounds.Asterisk.Play();
+                    TabletRecognized(sender, e);
+                }
+                else if (tagData.Value == 0x2)
+                {
+                    GlassesRecognized(sender, e);
                 }
             }
         }

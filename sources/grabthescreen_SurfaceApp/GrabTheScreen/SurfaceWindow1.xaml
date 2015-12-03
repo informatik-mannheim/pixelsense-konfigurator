@@ -89,18 +89,6 @@
                                     <SolidColorBrush Color="#1872b0" />
                                 </Button.Background>
                             </Button>
-                            <!--
-                            <Button Margin="0 0 15 0" Name="btn_color_blue" Height="100" Width="100" TouchDown="btn_color_blue_Click">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="/GrabTheScreen;component/Resources/btn_blue.jpg" />
-                                </Button.Background>
-                            </Button>
-                            <Button Margin="0 0 15 0" Name="btn_color_red" Height="100" Width="100" TouchDown="btn_color_red_Click">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="/GrabTheScreen;component/Resources/btn_red.jpg" />
-                                </Button.Background>
-                            </Button>
-                            -->
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -146,20 +134,13 @@
                     </Grid>
                     <Grid Grid.Row="2" Name="car_information" Width="200">
                         <!-- Auto Informationen -->
-                        <Label Name="Label_carModel" FontSize="20" Foreground="DarkSlateGray" Margin="0,5,0,0" />
-                        <Label Name="Label_carDescription" FontSize="20" Foreground="DarkSlateGray" Margin="0,45,0,0"/>
-                        <Label Name="Label_carPrice" FontSize="20" Foreground="DarkSlateGray" Margin="0,85,0,0"/>
-                        <Label Name="Label_carColor" FontSize="20" Foreground="DarkSlateGray" Margin="0 125 0 0" />
+                        <Label Name="lblCarModel" FontSize="20" Foreground="DarkSlateGray" Margin="0,5,0,0" />
+                        <Label Name="lblCarDescription" FontSize="20" Foreground="DarkSlateGray" Margin="0,45,0,0"/>
+                        <Label Name="lblCarPrice" FontSize="20" Foreground="DarkSlateGray" Margin="0,85,0,0"/>
+                        <Label Name="lblCarColor" FontSize="20" Foreground="DarkSlateGray" Margin="0 125 0 0" />
                     </Grid>
                 </Grid>
-                <s:SurfaceButton Content="Fertig? Grab it!" Height="40" HorizontalAlignment="Right" Name="btn_grabIt" VerticalAlignment="top" Width="175" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Click="btn_grabIt_Click" Background="Black" Foreground="#FFF" FontSize="12" Margin="0,6,6,0" />
             </Grid>
-            <Border Name="hierAuflegen" Background="Gainsboro" Opacity="0.85" CornerRadius="20 20 20 20" Grid.Column="1" BorderBrush="DarkGray" BorderThickness="3" Height="400" Width="250" Margin="0 0 0 200" Visibility="Hidden">
-                <Grid  Name="placeholder_smartphone" >
-                <Label FontSize="28" VerticalAlignment="Center" HorizontalContentAlignment="Center" Foreground="Black"> Smartphone hier auflegen</Label>
-            </Grid>
-                
-            </Border>
             <!--END: Rechter Bereich-->
         </Grid>
     </Grid>
