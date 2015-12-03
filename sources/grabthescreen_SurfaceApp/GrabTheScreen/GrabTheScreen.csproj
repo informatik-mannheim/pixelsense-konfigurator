@@ -54,6 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
@@ -94,6 +95,8 @@
       <DependentUpon>CameraVisualization.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutoTO.cs" />
+    <Compile Include="ImageHelper.cs" />
+    <Compile Include="ModelLoader.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="SurfaceWindow1.xaml.cs">
       <DependentUpon>SurfaceWindow1.xaml</DependentUpon>

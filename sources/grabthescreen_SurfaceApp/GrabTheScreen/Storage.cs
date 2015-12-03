@@ -13,8 +13,8 @@ namespace GrabTheScreen
 
         public Storage()
         {
-            String ip = ConfigurationSettings.AppSettings.Get("storage-ip");
-            String port = ConfigurationSettings.AppSettings.Get("storage-port");
+            String ip = ConfigurationManager.AppSettings.Get("storage-ip");
+            String port = ConfigurationManager.AppSettings.Get("storage-port");
             URL = String.Format("http://{0}:{1}/string-store", ip, port);
         }
 

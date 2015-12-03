@@ -144,7 +144,7 @@
                     <Grid Grid.Row="1" Background="#26282B">
                         <Label Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="12">Details</Label>
                     </Grid>
-                    <Grid Grid.Row="2" Name="car_information" Width="200" Loaded="Grid_Loaded">
+                    <Grid Grid.Row="2" Name="car_information" Width="200">
                         <!-- Auto Informationen -->
                         <Label Name="Label_carModel" FontSize="20" Foreground="DarkSlateGray" Margin="0,5,0,0" />
                         <Label Name="Label_carDescription" FontSize="20" Foreground="DarkSlateGray" Margin="0,45,0,0"/>
