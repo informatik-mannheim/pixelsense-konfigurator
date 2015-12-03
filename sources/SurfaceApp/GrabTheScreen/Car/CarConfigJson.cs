@@ -5,54 +5,56 @@ using System.Runtime.Serialization;
 namespace GrabTheScreen.Car
 {
     /// <summary>
-    /// DTO to transfer car data from and to JSON by using the <see cref="JsonSerializer" />.
+    /// DTO to transfer car data from and to JSON by using the <see>
+    ///         <cref>JsonSerializer</cref>
+    ///     </see>.
     /// </summary>
     [DataContract]
     public class CarConfigJson
     {
         [DataMember(Name="product")]
-        public Product product;
+        public Product Product;
 
         public void SetColor(string color) 
         {
-            product.attributeGroups.Single(at => at.name == "Exterior").attributes.Single(at => at.name == "Farbe").selectedValues = new List<string> { color };
+            Product.AttributeGroups.Single(at => at.Name == "Exterior").Attributes.Single(at => at.Name == "Farbe").SelectedValues = new List<string> { color };
         }
 
         public string GetColor()
         {
-            return product.attributeGroups.Single(at => at.name == "Exterior").attributes.Single(at => at.name == "Farbe").selectedValues[0];
+            return Product.AttributeGroups.Single(at => at.Name == "Exterior").Attributes.Single(at => at.Name == "Farbe").SelectedValues[0];
         }
 
         public static CarConfigJson Default() 
         {
             CarConfigJson json = new CarConfigJson()
             {
-                product = new Product()
+                Product = new Product()
                 {
-                    attributeGroups = new List<AttributeGroups>() 
+                    AttributeGroups = new List<AttributeGroups>() 
                     {
                         new AttributeGroups() 
                         {
-                            name = "Exterior",
-                            attributes = new List<Attributes>() 
+                            Name = "Exterior",
+                            Attributes = new List<Attributes>() 
                             {
                                 new Attributes() 
                                 {
-                                    name = "Farbe",
-                                    selectedValues = new List<string> { "Grün" }
+                                    Name = "Farbe",
+                                    SelectedValues = new List<string> { "Grün" }
                                 },
 
                                 new Attributes() 
                                 {
-                                    name = "Scheibentönung",
-                                    selectedValues = new List<string> { "Ja" }
+                                    Name = "Scheibentönung",
+                                    SelectedValues = new List<string> { "Ja" }
 
                                 },
 
                                  new Attributes() 
                                 {
-                                    name = "Felgen",
-                                    selectedValues = new List<string> { "Felge B" }
+                                    Name = "Felgen",
+                                    SelectedValues = new List<string> { "Felge B" }
 
                                 }
                             }
@@ -60,19 +62,19 @@ namespace GrabTheScreen.Car
 
                         new AttributeGroups() 
                         {
-                            name = "Interior",
-                            attributes = new List<Attributes>() 
+                            Name = "Interior",
+                            Attributes = new List<Attributes>() 
                             {
                                 new Attributes() 
                                 {
-                                    name = "Polster",
-                                    selectedValues = new List<string> { "Leder" }
+                                    Name = "Polster",
+                                    SelectedValues = new List<string> { "Leder" }
                                 },
 
                                 new Attributes() 
                                 {
-                                    name = "Navigation",
-                                    selectedValues = new List<string> { "Ja" }
+                                    Name = "Navigation",
+                                    SelectedValues = new List<string> { "Ja" }
 
                                 }
                             }
@@ -88,27 +90,27 @@ namespace GrabTheScreen.Car
     [DataContract]
     public class Product
     {
-        [DataMember]
-        public List<AttributeGroups> attributeGroups;
+        [DataMember(Name = "attributeGroups")]
+        public List<AttributeGroups> AttributeGroups;
     }
 
     [DataContract]
     public class AttributeGroups
     {
-        [DataMember]
-        public string name;
+        [DataMember(Name="name")]
+        public string Name;
 
-        [DataMember]
-        public List<Attributes> attributes;
+        [DataMember(Name="attributes")]
+        public List<Attributes> Attributes;
     }
 
     [DataContract]
     public class Attributes
     {
-        [DataMember]
-        public string name;
+        [DataMember(Name = "name")]
+        public string Name;
 
-        [DataMember]
-        public List<string> selectedValues;
+        [DataMember(Name = "selectedValues")]
+        public List<string> SelectedValues;
     }
 }
