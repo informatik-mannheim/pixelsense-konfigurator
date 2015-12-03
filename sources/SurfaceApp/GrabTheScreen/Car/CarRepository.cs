@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
+﻿using System.Configuration;
 
-namespace GrabTheScreen
+namespace GrabTheScreen.Car
 {
     public class CarRepository
     {
-        private Car _blueCar;
-        private Car _greenCar;
+        private readonly Car _blueCar;
+        private readonly Car _greenCar;
 
-        private Storage _storage;
+        private readonly Storage _storage;
 
         public CarRepository()
         {
@@ -27,14 +23,7 @@ namespace GrabTheScreen
             var carConfig = serializer.Deserialize(json);
             var color = carConfig.GetColor();
             
-            if (color == "Grün")
-            {
-                return GetGreenCar();
-            }
-            else
-            {
-                return GetBlueCar();
-            }
+            return color == "Grün" ? GetGreenCar() : GetBlueCar();
         }
 
         public void StoreRemote(Car car)

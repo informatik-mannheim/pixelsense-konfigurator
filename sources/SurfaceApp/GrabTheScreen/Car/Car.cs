@@ -1,40 +1,39 @@
 ﻿using System;
-using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
-using HelixToolkit.Wpf;
 
-namespace GrabTheScreen
+namespace GrabTheScreen.Car
 {
     /// <summary>
     /// Domain model for the car. Holds the 3D model, a thumbnail of the car and all the meta information. 
     /// </summary>
     public class Car
     {
-        public String Model { get; private set; }
-        public String ModelDescription { get; private set; }
-        public String Price { get; private set; }
-        public String Source { get; private set; }
-        public String ID { get; private set; }
-        public String Color { get; private set; }
+        public string Model { get; private set; }
+        public string ModelDescription { get; private set; }
+        public string Price { get; private set; }
+        public string Source { get; private set; }
+        public string Id { get; private set; }
+        public string Color { get; private set; }
         public Model3D Model3D { get; protected set; }
 
-        public Car(String car_model, String car_modelDescription, String car_price, String car_source, String car_color)
+        public Car(string carModel, string carModelDescription, string carPrice, string carSource, string carColor)
         {
-            Model = car_model;
-            ModelDescription = car_modelDescription;
-            Price = car_price;
-            Source = car_source;
-            Color = car_color;
-            ID = new Random().Next(10000, 999999999).ToString();
+            Model = carModel;
+            ModelDescription = carModelDescription;
+            Price = carPrice;
+            Source = carSource;
+            Color = carColor;
+            Id = new Random().Next(10000, 999999999).ToString();
         }
 
         public Car() { }
 
         public Image CreateThumbnail()
         {
-            Uri pathToThumbnail = new Uri(Source, UriKind.Relative);
-            return new Image() { Source = new BitmapImage(pathToThumbnail) };
+            var pathToThumbnail = new Uri(Source, UriKind.Relative);
+            return new Image { Source = new BitmapImage(pathToThumbnail) };
         }
     }
 

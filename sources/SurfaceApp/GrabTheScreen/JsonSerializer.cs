@@ -6,7 +6,7 @@ namespace GrabTheScreen
 {
     class JsonSerializer<T>
     {
-        DataContractJsonSerializer _serializer;
+        readonly DataContractJsonSerializer _serializer;
 
         public JsonSerializer() 
         {
@@ -15,7 +15,7 @@ namespace GrabTheScreen
 
         public T Deserialize(string json)
         {
-            using(MemoryStream stream = new MemoryStream(Encoding.Unicode.GetBytes(json)))
+            using(var stream = new MemoryStream(Encoding.Unicode.GetBytes(json)))
             {
                 return (T) _serializer.ReadObject(stream);
             }
@@ -23,7 +23,7 @@ namespace GrabTheScreen
 
         public string Serialize(T instance)
         {
-            using(MemoryStream stream = new MemoryStream())
+            using(var stream = new MemoryStream())
             {
                 _serializer.WriteObject(stream, instance);
                 stream.Position = 0;

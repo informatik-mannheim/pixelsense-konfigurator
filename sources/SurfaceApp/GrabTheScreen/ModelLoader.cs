@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
 
@@ -17,7 +14,10 @@ namespace GrabTheScreen
             {
                 device = new ObjReader().Read(model);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                // what could possibly go wrong?
+            }
 
             return device;
         }

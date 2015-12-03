@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
+﻿using System.Configuration;
 using RestSharp;
 
 namespace GrabTheScreen
 {
     class Storage
     {
-        private string URL;
-        private RestClient _restClient;
+        private readonly RestClient _restClient;
 
         public Storage()
         {
-            String ip = ConfigurationManager.AppSettings.Get("storage-ip");
-            String port = ConfigurationManager.AppSettings.Get("storage-port");
-            URL = String.Format("http://{0}:{1}/string-store", ip, port);
+            var ip = ConfigurationManager.AppSettings.Get("storage-ip");
+            var port = ConfigurationManager.AppSettings.Get("storage-port");
+            var url = string.Format("http://{0}:{1}/string-store", ip, port);
             
-            _restClient = new RestClient(URL);
+            _restClient = new RestClient(url);
             _restClient.Execute(new RestRequest());
         }
 
-        public String Load(String key)
+        public string Load(string key)
         {
             var request = new RestRequest("get", Method.GET);
 
@@ -34,7 +29,7 @@ namespace GrabTheScreen
             return response.Content;
         }
 
-        public void Save(String key, String value)
+        public void Save(string key, string value)
         {
             var request = new RestRequest("set", Method.POST);
 

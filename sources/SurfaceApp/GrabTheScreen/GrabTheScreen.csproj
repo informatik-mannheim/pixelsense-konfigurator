@@ -88,9 +88,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Car.cs" />
-    <Compile Include="CarConfigJson.cs" />
-    <Compile Include="CarRepository.cs" />
+    <Compile Include="Car\Car.cs" />
+    <Compile Include="Car\CarConfigJson.cs" />
+    <Compile Include="Car\CarRepository.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="ModelLoader.cs" />
     <Compile Include="Storage.cs" />

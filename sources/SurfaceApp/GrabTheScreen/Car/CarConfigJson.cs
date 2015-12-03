@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 
-namespace GrabTheScreen
+namespace GrabTheScreen.Car
 {
     /// <summary>
     /// DTO to transfer car data from and to JSON by using the <see cref="JsonSerializer" />.
