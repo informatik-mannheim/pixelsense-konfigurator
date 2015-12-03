@@ -6,6 +6,9 @@ using System.Runtime.Serialization;
 
 namespace GrabTheScreen
 {
+    /// <summary>
+    /// DTO to transfer car data from and to JSON by using the <see cref="JsonSerializer" />.
+    /// </summary>
     [DataContract]
     public class CarConfigJson
     {
@@ -111,51 +114,3 @@ namespace GrabTheScreen
         public List<string> selectedValues;
     }
 }
-
-/*
-    {
-        "product": {
-                "attributeGroups": [
-                        {
-                                "name": "Exterior",
-                                "attributes": [
-                                        {
-                                                "name": "Farbe",
-                                                "selectedValues": [
-                                                        "Rot"
-                                                ]
-                                        },
-                                        {
-                                                "name": "ScheibentÃ¶nung",
-                                                "selectedValues": [
-                                                        "Ja"
-                                                ]
-                                        },
-                                        {
-                                                "name": "Felgen",
-                                                "selectedValues": [
-                                                        "Felge B"
-                                                ]
-                                        }
-                                ]
-                        },
-                        {
-                                "name": "Interior",
-                                "attributes": [
-                                        {
-                                                "name": "Polster",
-                                                "selectedValues": [
-                                                        "Leder"
-                                                ]
-                                        },
-                                        {
-                                                "name": "Navigation",
-                                                "selectedValues": [
-                                                        "Ja"
-                                                ]
-                                        }
-                                ]
-                        }
-                ]
-        }
-}*/

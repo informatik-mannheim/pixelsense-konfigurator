@@ -6,6 +6,9 @@ using HelixToolkit.Wpf;
 
 namespace GrabTheScreen
 {
+    /// <summary>
+    /// Domain model for the car. Holds the 3D model, a thumbnail of the car and all the meta information. 
+    /// </summary>
     public class Car
     {
         public String Model { get; private set; }
