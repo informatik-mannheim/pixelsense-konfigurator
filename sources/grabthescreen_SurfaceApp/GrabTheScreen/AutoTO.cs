@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GrabTheScreen
 {
-    class AutoTO : Auto
+    class AutoTO : Car
     {
         String baseString64;
 

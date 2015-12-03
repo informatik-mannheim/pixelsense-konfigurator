@@ -36,19 +36,21 @@ namespace GrabTheScreen
     {
         private const bool SHOW_POSITION = false;
 
-        public Auto auto;
+        public Car _car;
         public String baseString;
         private ModelVisual3D _3dModel;
 
         private Model3D _blueCar;
         private Model3D _greenCar;
 
-        public Auto getAuto() {
-            return this.auto;
+        public Car getAuto()
+        {
+            return this._car;
         }
 
-        public void setAuto(Auto auto){
-            this.auto = auto;
+        public void setAuto(Car auto)
+        {
+            this._car = auto;
         }
 
         /// <summary>
@@ -68,9 +70,6 @@ namespace GrabTheScreen
             konfig_auto.Camera.LookDirection = new Vector3D(12.5551, -15.71341, -7.90444);
             konfig_auto.Camera.Position = new Point3D(-12.0937, 15.64731, 8.64752);
             konfig_auto.CameraChanged += new RoutedEventHandler(konfig_auto_CameraChanged); // Debug
-            
-            // Add handlers for window availability events
-            AddWindowAvailabilityHandlers();
         }
 
         void konfig_auto_CameraChanged(object sender, RoutedEventArgs e)
@@ -102,95 +101,10 @@ namespace GrabTheScreen
             return device;
         }
 
-        /// <summary>
-        /// Occurs when the window is about to close. 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-
-            // Remove handlers for window availability events
-            RemoveWindowAvailabilityHandlers();
-        }
-
-
-        /// <summary>
-        /// Adds handlers for window availability events.
-        /// </summary>
-        private void AddWindowAvailabilityHandlers()
-        {
-            // Subscribe to surface window availability events
-            ApplicationServices.WindowInteractive += OnWindowInteractive;
-            ApplicationServices.WindowNoninteractive += OnWindowNoninteractive;
-            ApplicationServices.WindowUnavailable += OnWindowUnavailable;
-        }
-
-        /// <summary>
-        /// Removes handlers for window availability events.
-        /// </summary>
-        private void RemoveWindowAvailabilityHandlers()
-        {
-            // Unsubscribe from surface window availability events
-            ApplicationServices.WindowInteractive -= OnWindowInteractive;
-            ApplicationServices.WindowNoninteractive -= OnWindowNoninteractive;
-            ApplicationServices.WindowUnavailable -= OnWindowUnavailable;
-        }
-
-        /// <summary>
-        /// This is called when the user can interact with the application's window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnWindowInteractive(object sender, EventArgs e)
-        {
-            //TODO: enable audio, animations here
-        }
-
-        /// <summary>
-        /// This is called when the user can see but not interact with the application's window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnWindowNoninteractive(object sender, EventArgs e)
-        {
-            //TODO: Disable audio here if it is enabled
-            //TODO: optionally enable animations here
-        }
-
-        /// <summary>
-        /// This is called when the application's window is not visible or interactive.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnWindowUnavailable(object sender, EventArgs e)
-        {
-            //TODO: disable audio, animations here
-        }
-
-
         // Erzeugung der Auto-Informationen und Autobild im rechten Block
         private void SurfaceWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Auto Objekt erzeugen: Initial rot
-            this.auto = new Auto();
-            Random random = new Random();
-            int hash = random.Next(10000, 999999999);
-            this.auto.setId(hash.ToString());
-            this.auto.setModel("BMW 116i 3-T¸rer");
-            this.auto.setModelDescription("Modell Advantage");
-            this.auto.setPrice("22.650 EUR");
-            //this.auto.setSource("Resources/small_bmw_rot.jpg");
-            this.auto.setSource(@"Resources\blue.PNG");
-            this.auto.setColor("Rot");
-            this.auto.setStatus(false);
-
-            // Miniaturbild (thumbnail) erzeugen
-            Uri uri = new Uri(auto.getSource(), UriKind.Relative);
-            BitmapImage imageBitmap = new BitmapImage(uri);
-            System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
-            thumbnail.Source = imageBitmap;
-            thumbnail_car.Children.Add(thumbnail);
+            ChangeCar(new BlueCar(), _blueCar);
         }
 
         // Ausgabe der Auto-Informationen im Rechten Block 
@@ -246,20 +160,18 @@ namespace GrabTheScreen
 
             // setzt status des Datensatzes in DB auf false zun‰chst
             btn_grabIt.IsEnabled = false;
-            MongoDB.save(this.auto);
+          //  MongoDB.save(this.auto);
         }
 
         // erzeugt Tag-Bereich
         private void OnVisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
-            this.auto.setStatus(true);
+            _car.setStatus(true);
             
             CameraVisualization camera = (CameraVisualization)e.TagVisualization;
             camera.GRABIT.Content = "Das Smartphone wurde erkannt";
             camera.myRectangle.Fill = SurfaceColors.Accent1Brush;
-            camera.setAuto(this.getAuto());
-
-            MongoDB.save(this.auto);
+            camera.setAuto(getAuto());
         }
 
 
@@ -292,124 +204,34 @@ namespace GrabTheScreen
             return img;
         }
 
-        // this is blue
-        private void btn_color_black_Click(object sender, TouchEventArgs e)
-        {
-            Random random = new Random();
-            int hash = random.Next(10000, 999999999);
-            this.auto.setId(hash.ToString());
-            auto.setColor("Schwarz");
-            auto.setModelDescription("Modell M Sport");
-            auto.setPrice("43.850 EUR");
-            auto.setSource("Resources/small_bmw_schwarz.jpg");
-
-            // Miniaturbild (thumbnail) erzeugen
-            
-            Uri miniatur = new Uri(@"Resources\blue.PNG", UriKind.Relative);
-            BitmapImage ib = new BitmapImage(miniatur);
-            System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
-            thumbnail.Source = ib;
-            thumbnail_car.Children.Add(thumbnail);
-            
-            setConfLabels();
-            _3dModel.Content =_blueCar;
-        }
-
-        // this is green
-        private void btn_color_white_Click(object sender, TouchEventArgs e)
-        {
-            SetToWhite();
-            _3dModel.Content = _greenCar;
-        }
-
-        private void SetToWhite()
-        {
-            Random random = new Random();
-            int hash = random.Next(10000, 999999999);
-            this.auto.setId(hash.ToString());
-            auto.setColor("Weiﬂ");
-            auto.setModelDescription("Modell Sport Line");
-            auto.setPrice("32.550 EUR");
-            auto.setSource("Resources/small_bmw_weiﬂ.jpg");
-
-            // Miniaturbild (thumbnail) erzeugen
-          //  Uri miniatur = new Uri(@"Resources\small_bmw_weiﬂ.jpg", UriKind.Relative);
-            Uri miniatur = new Uri(@"Resources\green.PNG", UriKind.Relative);
-            BitmapImage ib = new BitmapImage(miniatur);
-            System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
-            thumbnail.Source = ib;
-            thumbnail_car.Children.Add(thumbnail);
-
-            Uri uri = new Uri(@"Resources\bmw_weiﬂ.jpg", UriKind.Relative);
-            BitmapImage imageBitmap = new BitmapImage(uri);
-            //konfig_auto.Source = imageBitmap;
-
-            setConfLabels();
-        }
-
         private void btn_color_blue_Click(object sender, TouchEventArgs e)
         {
-            Random random = new Random();
-            int hash = random.Next(10000, 999999999);
-            this.auto.setId(hash.ToString());
-            auto.setColor("Blau");
-            auto.setModelDescription("Modell Urban Line");
-            auto.setPrice("28.950 EUR");
-            auto.setSource("Resources/small_bmw_blau.jpg");
-
-            // Miniaturbild (thumbnail) erzeugen
-            Uri miniatur = new Uri(@"Resources\small_bmw_blau.jpg", UriKind.Relative);
-            BitmapImage ib = new BitmapImage(miniatur);
-            System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
-            thumbnail.Source = ib;
-            thumbnail_car.Children.Add(thumbnail);
-
-            Uri uri = new Uri(@"Resources\bmw_blau.jpg", UriKind.Relative);
-            BitmapImage imageBitmap = new BitmapImage(uri);
-           // konfig_auto.Source = imageBitmap;
-
-            setConfLabels();
+            ChangeCar(new BlueCar(), _blueCar);
         }
 
-        private void btn_color_red_Click(object sender, TouchEventArgs e)
+        private void btn_color_green_Click(object sender, TouchEventArgs e)
         {
-            SetToRed();
+            ChangeCar(new GreenCar(), _greenCar);
         }
 
-        private void SetToRed()
+        private void ChangeCar(Car car, Model3D model)
         {
-            Random random = new Random();
-            int hash = random.Next(10000, 999999999);
-            this.auto.setId(hash.ToString());
-            auto.setColor("Rot");
-            auto.setModelDescription("Modell Advantage");
-            auto.setPrice("22.650 EUR");
-            auto.setSource("Resources/small_bmw_rot.jpg");
-
-            // Miniaturbild (thumbnail) erzeugen
-            Uri miniatur = new Uri(@"Resources\small_bmw_rot.jpg", UriKind.Relative);
-            BitmapImage ib = new BitmapImage(miniatur);
-            System.Windows.Controls.Image thumbnail = new System.Windows.Controls.Image();
-            thumbnail.Source = ib;
-            thumbnail_car.Children.Add(thumbnail);
-
-            Uri uri = new Uri(@"Resources\bmw_rot.jpg", UriKind.Relative);
-            BitmapImage imageBitmap = new BitmapImage(uri);
-          //  konfig_auto.Source = imageBitmap;
+            _car = car;
+            thumbnail_car.Children.Add(_car.CreateThumbnail());
+            _3dModel.Content = model;
 
             setConfLabels();
         }
 
         public void setConfLabels()
         {
-            Label_carModel.Content = auto.getModel();
-            Label_carDescription.Content = auto.getModelDescription();
-            Label_carPrice.Content = auto.getPrice();
-            Label_carColor.Content = auto.getColor();
+            Label_carModel.Content = _car.getModel();
+            Label_carDescription.Content = _car.getModelDescription();
+            Label_carPrice.Content = _car.getPrice();
+            Label_carColor.Content = _car.getColor();
             hierAuflegen.Visibility = System.Windows.Visibility.Hidden;
 
             btn_grabIt.IsEnabled = true;
-
         }
 
         private void SurfaceWindow_TouchDown(object sender, TouchEventArgs e)
@@ -419,12 +241,11 @@ namespace GrabTheScreen
                 TagData tagData = e.TouchDevice.GetTagData();
                 if (tagData.Value == 0x1)
                 {
-                    SetToWhite();
+                    ChangeCar(new GreenCar(), _greenCar);
 
                     System.Media.SystemSounds.Asterisk.Play();
                 }
             }
         }
-
     }
 }

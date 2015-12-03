@@ -22,16 +22,16 @@ namespace GrabTheScreen
     /// </summary>
     public partial class CameraVisualization : TagVisualization
     {
-        Auto _auto;
+        Car _car;
 
-        public Auto getAuto()
+        public Car getAuto()
         {
-            return _auto;
+            return _car;
         }
 
-        public void setAuto(Auto auto)
+        public void setAuto(Car auto)
         {
-            _auto = auto;
+            _car = auto;
         }
 
         public CameraVisualization()
@@ -47,7 +47,7 @@ namespace GrabTheScreen
         private void OnLostTag(object sender, RoutedEventArgs e)
         {
             getAuto().setStatus(false);
-            MongoDB.save(this.getAuto());
+           // MongoDB.save(this.getAuto());
         }
     }
 }

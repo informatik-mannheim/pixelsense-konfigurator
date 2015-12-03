@@ -79,16 +79,17 @@
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Foreground="#000" Margin="12 0 0 15">Außenfarbe</Label>
                         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="15 0 0 0">
-                            <Button Margin="0 0 15 0" Name="btn_color_black" Height="100" Width="100" TouchDown="btn_color_black_Click">
-                                <Button.Background>
-                                    <SolidColorBrush Color="#1872b0" />
-                                </Button.Background>
-                            </Button>
-                            <Button Margin="0 0 15 0" Name="btn_color_white" Height="100" Width="100" TouchDown="btn_color_white_Click">
+                            <Button Margin="0 0 15 0" Name="btn_color_green" Height="100" Width="100" TouchDown="btn_color_green_Click">
                                 <Button.Background>
                                     <SolidColorBrush Color="#b8f07b" />
                                 </Button.Background>
                             </Button>
+                            <Button Margin="0 0 15 0" Name="btn_color_blue" Height="100" Width="100" TouchDown="btn_color_blue_Click">
+                                <Button.Background>
+                                    <SolidColorBrush Color="#1872b0" />
+                                </Button.Background>
+                            </Button>
+                            <!--
                             <Button Margin="0 0 15 0" Name="btn_color_blue" Height="100" Width="100" TouchDown="btn_color_blue_Click">
                                 <Button.Background>
                                     <ImageBrush ImageSource="/GrabTheScreen;component/Resources/btn_blue.jpg" />
@@ -99,6 +100,7 @@
                                     <ImageBrush ImageSource="/GrabTheScreen;component/Resources/btn_red.jpg" />
                                 </Button.Background>
                             </Button>
+                            -->
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Column="1">

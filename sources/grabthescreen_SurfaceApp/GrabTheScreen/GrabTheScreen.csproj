@@ -89,12 +89,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Auto.cs" />
+    <Compile Include="Car.cs" />
     <Compile Include="CameraVisualization.xaml.cs">
       <DependentUpon>CameraVisualization.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutoTO.cs" />
-    <Compile Include="MongoDB.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="SurfaceWindow1.xaml.cs">
       <DependentUpon>SurfaceWindow1.xaml</DependentUpon>
