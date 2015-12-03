@@ -9,33 +9,32 @@ namespace GrabTheScreen
 {
     class Storage
     {
-        private String URL;
+        private string URL;
+        private RestClient _restClient;
 
         public Storage()
         {
             String ip = ConfigurationManager.AppSettings.Get("storage-ip");
             String port = ConfigurationManager.AppSettings.Get("storage-port");
             URL = String.Format("http://{0}:{1}/string-store", ip, port);
+            
+            _restClient = new RestClient(URL);
         }
 
         public String Load(String key)
         {
-            var client = new RestClient(URL);
             var request = new RestRequest("get", Method.GET);
-  
+
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddHeader("Accept", "*/*");
-
             request.AddQueryParameter("key", key);
-            
 
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = _restClient.Execute(request);
             return response.Content;
         }
 
         public void Save(String key, String value)
         {
-            var client = new RestClient(URL);
             var request = new RestRequest("set", Method.POST);
 
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -44,7 +43,7 @@ namespace GrabTheScreen
             request.AddQueryParameter("key", key);
             request.AddQueryParameter("value", value);
 
-            client.Execute(request);
+            _restClient.Execute(request);
         }
     }
 }

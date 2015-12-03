@@ -10,19 +10,22 @@ namespace GrabTheScreen
         private Car _blueCar;
         private Car _greenCar;
 
+        private Storage _storage;
+
         public CarRepository()
         {
             _blueCar = new BlueCar();
             _greenCar = new GreenCar();
+            _storage = new Storage();
         }
 
         public Car FetchRemote()
         {
-            Storage storage = new Storage();
-            var json = storage.Load("test");
+            var json = _storage.Load("test");
             var serializer = new JsonSerializer<CarConfigJson>();
             var carConfig = serializer.Deserialize(json);
-            var color = carConfig.product.attributeGroups.Single(ag => ag.name == "Exterior").attributes.Single(at => at.name=="Farbe").selectedValues[0];
+            var color = carConfig.GetColor();
+            
             if (color == "Grün")
             {
                 return GetGreenCar();
