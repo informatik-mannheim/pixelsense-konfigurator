@@ -36,7 +36,7 @@ namespace GrabTheScreen
             _3DModel = (ModelVisual3D)FindName("myModel");
 
             konfig_auto.RotateGesture = new MouseGesture(MouseAction.LeftClick);
-            konfig_auto.CameraRotationMode = CameraRotationMode.Turnball;
+            konfig_auto.CameraRotationMode = CameraRotationMode.Trackball;
             konfig_auto.Camera.LookDirection = new Vector3D(-6.97701085101471, 16.0827908414958, -12.6367369160405);
             konfig_auto.Camera.Position = new Point3D(7.43841085101471, -16.1488908414958, 13.3798169160405);
         }
