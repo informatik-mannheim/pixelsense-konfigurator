@@ -17,6 +17,7 @@ namespace GrabTheScreen.Car
         public string Id { get; private set; }
         public string Color { get; private set; }
         public Model3D Model3D { get; protected set; }
+        private static readonly Car _unknownCar = new Car();
 
         public Car(string carModel, string carModelDescription, string carPrice, string carSource, string carColor)
         {
@@ -34,6 +35,11 @@ namespace GrabTheScreen.Car
         {
             var pathToThumbnail = new Uri(Source, UriKind.Relative);
             return new Image { Source = new BitmapImage(pathToThumbnail) };
+        }
+
+        public static Car Unknown
+        {
+            get { return _unknownCar; }
         }
     }
 

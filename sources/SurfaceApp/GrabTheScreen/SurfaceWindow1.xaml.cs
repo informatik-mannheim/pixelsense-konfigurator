@@ -86,6 +86,8 @@ namespace GrabTheScreen
         /// <param name="car">The car information.</param>
         private void ChangeCar(Car.Car car)
         {
+            if (car.Equals(Car.Car.Unknown)) { return; }
+
             _car = car;
             thumbnail_car.Children.Add(_car.CreateThumbnail());
             _3DModel.Content = _car.Model3D;
