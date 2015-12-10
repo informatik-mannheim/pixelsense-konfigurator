@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Runtime.Remoting;
 
 namespace GrabTheScreen.Car
 {
@@ -18,12 +20,21 @@ namespace GrabTheScreen.Car
 
         public Car FetchRemote()
         {
-            var json = _storage.Load(ConfigurationManager.AppSettings.Get("storage-key-cas"));
-            var serializer = new JsonSerializer<CarConfigJson>();
-            var carConfig = serializer.Deserialize(json);
-            var color = carConfig.GetColor();
-            
-            return color == "Grün" ? GetGreenCar() : GetBlueCar();
+            try
+            {
+                var json = _storage.Load(ConfigurationManager.AppSettings.Get("storage-key-cas"));
+                var serializer = new JsonSerializer<CarConfigJson>();
+                var carConfig = serializer.Deserialize(json);
+                var color = carConfig.GetColor();
+
+                return color == "Grün" ? GetGreenCar() : GetBlueCar();
+            }
+            catch (ServerException e)
+            {
+                Logger.Log(e.Message);
+            }
+
+            return Car.Unknown;
         }
 
         public void StoreRemote(Car car)
