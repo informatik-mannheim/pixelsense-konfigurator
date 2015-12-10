@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Runtime.Remoting;
 using RestSharp;
 
@@ -40,6 +41,10 @@ namespace GrabTheScreen
             if (response.ResponseStatus == ResponseStatus.Error)
             {
                 throw new ServerException(string.Format("{0} ({1}:{2})", response.ErrorMessage, _ip, _port));
+            }
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                throw new KeyNotFoundException(string.Format("Key '{0}' not found.", key));
             }
 
             return response.Content;

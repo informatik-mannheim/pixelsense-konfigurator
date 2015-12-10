@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Runtime.Remoting;
 
@@ -29,10 +29,8 @@ namespace GrabTheScreen.Car
 
                 return color == "Grün" ? GetGreenCar() : GetBlueCar();
             }
-            catch (ServerException e)
-            {
-                Logger.Log(e.Message);
-            }
+            catch (ServerException e) { Logger.Log(e.Message); }
+            catch (KeyNotFoundException e) { Logger.Log(e.Message); }
 
             return Car.Unknown;
         }
