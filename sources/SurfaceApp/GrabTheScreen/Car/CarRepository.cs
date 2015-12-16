@@ -38,7 +38,7 @@ namespace GrabTheScreen.Car
         public void StoreRemote(Car car)
         {
             var config = CarConfigJson.Default();
-            config.SetColor(car.Color);
+            config.SetColor(car.Color == "Grün" ? "#B8F07B" : "#1872B0"); // because 3m5 already accepts hex codes instead of "Blau" or "Grün" strings.
             var serializer = new JsonSerializer<CarConfigJson>();
             var json = serializer.Serialize(config);
             _storage.Save(ConfigurationManager.AppSettings.Get("storage-key-3m5"), json);
