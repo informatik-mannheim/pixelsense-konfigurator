@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System;
 
 namespace GrabTheScreen.Car
 {
@@ -22,7 +23,14 @@ namespace GrabTheScreen.Car
 
         public string GetColor()
         {
-            return Product.AttributeGroups.Single(at => at.Name == "Exterior").Attributes.Single(at => at.Name == "Farbe").SelectedValues[0];
+            try
+            {
+                return Product.AttributeGroups.Single(at => at.Name == "Exterior").Attributes.Single(at => at.Name == "Farbe").SelectedValues[0];
+            }
+            catch(Exception)
+            {
+                return "";
+            }
         }
 
         public static CarConfigJson Default() 
